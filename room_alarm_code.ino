@@ -1,10 +1,19 @@
+/*
+ * To do:
+ * Create night mode
+ * finish buttons
+ * finish password
+*/
+
+//Button pins: 1 = pin 10, 2 = pin 12, 3 = pin 11, 4 = pin 6
+
 #include <Wire.h>
 
 #include <LiquidCrystal_I2C.h> 
 
 LiquidCrystal_I2C lcd (0x27, 16, 2);
 
-bool systemRunning = false ;
+bool systemRunning = false;
 
 bool caught = false;
 
@@ -16,7 +25,9 @@ int letterStatus3;
 
 int letterStatus4;
 
-char header1[] = { "Status:" };
+int password[ 4 ] = { 1, 3, 2, 4 };
+
+char header1[] = { "Status(VER 1.2):" };
 
 char message1[] = { "NORMAL" };
 
@@ -33,7 +44,19 @@ void setup() {
 
   pinMode( 2, OUTPUT );
 
+  pinMode( 5, OUTPUT );
+
+  pinMode( 10, INPUT );
+
+  pinMode( 12, INPUT );
+
+  pinMode( 11, INPUT );
+
+  pinMode( 6, INPUT );
+
   digitalWrite( 4, HIGH );
+
+  digitalWrite( 5, HIGH );
 
   lcd.begin( );
 }
@@ -45,7 +68,7 @@ void loop() {
      digitalWrite( 8, HIGH ); //Turn red on
     }
     lcd.clear( );
-    for ( letterStatus1 = 0; letterStatus1 <= 6; letterStatus1++ ) {
+    for ( letterStatus1 = 0; letterStatus1 <= 15; letterStatus1++ ) {
       lcd.setCursor( letterStatus1, 0 );
   
       lcd.print( header1[ letterStatus1 ] );
@@ -61,7 +84,7 @@ void loop() {
 
     digitalWrite( 4, HIGH );
     lcd.clear( );
-    for ( letterStatus1 = 0; letterStatus1 <= 6; letterStatus1++ ) {
+    for ( letterStatus1 = 0; letterStatus1 <= 15; letterStatus1++ ) {
       lcd.setCursor( letterStatus1, 0 );
   
       lcd.print( header1[ letterStatus1 ] );
@@ -82,7 +105,7 @@ void loop() {
     digitalWrite( 2, HIGH ); //Turn blue led on
 
     lcd.clear( );
-    for ( letterStatus1 = 0; letterStatus1 <= 6; letterStatus1++ ) {
+    for ( letterStatus1 = 0; letterStatus1 <= 15; letterStatus1++ ) {
       lcd.setCursor( letterStatus1, 0 );
   
       lcd.print( header1[ letterStatus1 ] );
